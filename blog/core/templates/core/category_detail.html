@@ -1,0 +1,8 @@
+{{ category }}
+
+{% for q in category.questions.all %}
+  <div>
+    <a href="{% url "ugc:question_detail" pk=q.id %}">{{ q }}</a>
+    <a href="/posts/{{ q.id }}/">{{ q }}</a>
+  </div>
+{% endfor %}

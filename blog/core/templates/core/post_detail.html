@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>This is post {{ question.title }}</h1>
+  <p>
+    {{ question.text }}
+  </p>
+  <p>
+    {% for category in question.categories.all %}
+      <a href="/categories/{{ category.id }}/">{{ category }}</a>{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  </p>
+  <p>
+    {% for answer in question.answers.all %}
+      <div>
+        <em>{{ forloop.counter }}</em>
+        <em>{{ answer.text }}</em>
+      </div>
+    {% endfor %}
+  </p>
+{% endblock %}
+
+{% block menu %}<h1>Not main meny</h1>{% endblock %}
