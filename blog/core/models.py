@@ -13,7 +13,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name=u'Название')
 
     def __unicode__(self):
         return self.title
@@ -25,13 +25,13 @@ class Category(models.Model):
 
 class Question(models.Model):
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    title = models.CharField(max_length=255, verbose_name=u'Тайтл')
-    text = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'Автор')
+    title = models.CharField(max_length=255, verbose_name=u'Заголовок')
+    text = models.TextField(verbose_name=u'Текст')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    categories = models.ManyToManyField(Category, related_name='questions')
-    is_deleted = models.BooleanField(default=False)
+    categories = models.ManyToManyField(Category, related_name='questions', verbose_name=u'Категории')
+    is_deleted = models.BooleanField(default=False, verbose_name=u'Удалено?')
 
     def __unicode__(self):
         return self.title
@@ -43,9 +43,9 @@ class Question(models.Model):
 
 class Answer(models.Model):
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    question = models.ForeignKey(Question, related_name='answers')
-    text = models.TextField(default='')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'Автор')
+    question = models.ForeignKey(Question, related_name='answers', verbose_name=u'Вопрос')
+    text = models.TextField(default='', verbose_name=u'Текст')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

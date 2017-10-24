@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
-from .models import Question, Answer, Category
+from .models import Question, Answer, Category, User
+
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+
+    pass
 
 
 class AnswerInline(admin.TabularInline):
@@ -13,18 +20,17 @@ class AnswerInline(admin.TabularInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
 
-    pass
+    list_display = 'id', 'title'
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
 
-    list_display = 'id', 'title',
-    list_editable = 'title',
+    list_display = 'id', 'title', 'author'
     inlines = AnswerInline,
 
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
 
-    pass
+    list_display = 'id', 'question', 'author'
