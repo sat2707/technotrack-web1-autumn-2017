@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}All questions{% endblock %}
+
+{% block content %}
+  {% for q in questions %}
+    <div>
+      <a href="{% url "core:question_detail" pk=q.pk %}">{{ q }}</a> ({{ q.answers.count }} answers)
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -8,7 +8,7 @@ from django.conf import settings
 
 class User(AbstractUser):
 
-    company_name = models.CharField(max_length=255)
+    pass
 
 
 class Category(models.Model):
@@ -17,6 +17,10 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    class Meta:
+        verbose_name = u'Категория'
+        verbose_name_plural = u'Категории'
 
 
 class Question(models.Model):
@@ -28,21 +32,26 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category, related_name='questions')
     is_deleted = models.BooleanField(default=False)
-    qtype = models.SmallIntegerField(choices=((1, 'urgent'), (2, 'etc')))
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = '-id',
         verbose_name = u'Вопрос'
         verbose_name_plural = u'Вопросы'
 
 
 class Answer(models.Model):
 
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     question = models.ForeignKey(Question, related_name='answers')
     text = models.TextField(default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return u'{} ({})'.format(self.id, self.question.text)
+
+    class Meta:
+        verbose_name = u'Ответ'
+        verbose_name_plural = u'Ответы'

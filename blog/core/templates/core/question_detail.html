@@ -1,23 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>This is post {{ question.title }}</h1>
+  <h1>{{ question.title }}</h1>
   <p>
     {{ question.text }}
   </p>
   <p>
     {% for category in question.categories.all %}
-      <a href="/categories/{{ category.id }}/">{{ category }}</a>{% if not forloop.last %},{% endif %}
+      <a href="{% url "core:category_detail" pk=category.pk %}">{{ category }}</a>{% if not forloop.last %},{% endif %}
     {% endfor %}
   </p>
+  <hr>
   <p>
     {% for answer in question.answers.all %}
       <div>
-        <em>{{ forloop.counter }}</em>
-        <em>{{ answer.text }}</em>
+        author: <em>{{ answer.author }}</em>
+        <br/>
+        {{ answer.text }}
       </div>
+      <br/>
     {% endfor %}
   </p>
 {% endblock %}
-
-{% block menu %}<h1>Not main meny</h1>{% endblock %}

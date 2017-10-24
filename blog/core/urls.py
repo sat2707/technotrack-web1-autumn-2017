@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from core.views import post_detail, CategoryDetail, question_list
+from core import views
 
 urlpatterns = [
-    url(r'^questions/$', question_list, name='question_list'),
-    url(r'^questions/(?P<pk>\d+)/$', post_detail, name='question_detail'),
-    url(r'^categories/(?P<pk>\d+)/$', CategoryDetail.as_view()),
+    url(r'^questions/$', views.QuestionList.as_view(), name='question_list'),
+    url(r'^questions/(?P<pk>\d+)/$', views.QuestionDetail.as_view(), name='question_detail'),
+    url(r'^categories/$', views.CategoryList.as_view(), name='category_list'),
+    url(r'^categories/(?P<pk>\d+)/$', views.CategoryDetail.as_view(), name='category_detail'),
 ]

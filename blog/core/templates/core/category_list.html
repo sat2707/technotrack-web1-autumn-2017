@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}All categories{% endblock %}
+
+{% block content %}
+  {% for category in categories %}
+    <h1>
+      <a href="{% url "core:category_detail" pk=category.pk %}">{{ category }}</a>
+      ({{ category.questions.count }} questions)
+    </h1>
+  {% endfor %}
+{% endblock %}

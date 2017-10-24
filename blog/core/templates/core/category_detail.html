@@ -1,8 +1,11 @@
-{{ category }}
+{% extends "base.html" %}
 
-{% for q in category.questions.all %}
-  <div>
-    <a href="{% url "ugc:question_detail" pk=q.id %}">{{ q }}</a>
-    <a href="/posts/{{ q.id }}/">{{ q }}</a>
-  </div>
-{% endfor %}
+{% block title %}{{ category }}{% endblock %}
+
+{% block content %}
+  {% for q in category.questions.all %}
+    <div>
+      <a href="{% url "core:question_detail" pk=q.id %}">{{ q }}</a> ({{ q.answers.count }} answers)
+    </div>
+  {% endfor %}
+{% endblock %}

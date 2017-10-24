@@ -1,11 +1,15 @@
-<h1>This is my site</h1>
+<h1>Parody on stackoverflow</h1>
 
 {% block menu %}
-<h2>This is main menu</h2>
+  <a href="{% url "index" %}">Main</a>
+  <a href="{% url "core:question_list" %}">All questions</a>
+  <a href="{% url "core:category_list" %}">All categories</a>
+  <hr>
 {% endblock %}
 
+<h1>{% block title %}{% endblock %}</h1>
 
 {% block content %}
 {% endblock %}
 
-{% include "footer.html" %}
+{% include "core/footer.html" %}
